@@ -9,6 +9,7 @@
           id="message-input"
           type="text"
           v-model="message"
+          @input="isTyping"
           placeholder="Enter Message"
           autocomplete="off"
           required
@@ -25,7 +26,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import { isTyping } from '../chatkit'
 
 export default {
   name: 'message-form',
@@ -37,6 +39,18 @@ export default {
   computed: {
     ...mapState(['user', 'sending', 'error', 'activeRoom']),
     ...mapGetters(['hasError'])
+  },
+  methods: {
+    ...mapActions(['sendMessage']),
+    async onSubmit() {
+      const result = await this.sendMessage(this.message)
+      if (result) {
+        this.message = ''
+      }
+    },
+    async isTyping() {
+      await isTyping(this.activeRoom.id)
+    }
   }
 }
 </script>
