@@ -1,5 +1,7 @@
 # practice-vuejs-chatkit
 
+[Ref.](https://www.sitepoint.com/pusher-vue-real-time-chat-app/)
+
 ## Project setup
 ```
 yarn install
